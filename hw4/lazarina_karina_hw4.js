@@ -114,8 +114,8 @@ let cars = [
 // // - створити функцію яка приймає будь-яку кількість чисел, повертає найменьше, а виводить найбільше
 //
 // function returnMax_logMin() {
-//     let min = 0;
-//     let max = 0;
+//     let min = arguments[0];
+//     let max = arguments[0];
 //     for (const argument of arguments) {
 //         if(argument<min){
 //             min = argument;
@@ -256,20 +256,20 @@ let cars = [
 //task15
 // // - *** створити функцію яка буде переносити елементи з значенням 0 у кінець маисву. Зберігаючи при цьому порядок не нульових значень.
 // // Двожина масиву від 2 до 100
-// function zeroToEnd(array) {
-//     for (let i = 0; i<array.length; i++) {
-//         if (array[i] === 0) {
-//             array[array.length - 1] = array[i];
-//             for (let j = i; j < array.length-1; j++) {
-//                 array[j] = array[j + 1];
-//             }
-//         }
-//     }
-//     return array;
-// }
-//
-// let arr = [8,0,6,5,0,3,7,0,7,0,0];
-// console.log(zeroToEnd(arr));
+function zeroToEnd(array) {
+    for (let i = 0; i<array.length; i++) {
+        if (array[i] === 0) {
+            array[array.length - 1] = array[i];
+            for (let j = i; j < array.length-1; j++) {
+                array[j] = array[j + 1];
+            }
+        }
+    }
+    return array;
+}
+
+let arr = [0,8,0,6,5,0,3,7,0,7,0,0];
+console.log(zeroToEnd(arr));
 
 //task16
 //- Додає в боді блок з текстом "Hello owu"
