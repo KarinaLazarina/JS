@@ -257,18 +257,24 @@ let cars = [
 // // - *** створити функцію яка буде переносити елементи з значенням 0 у кінець маисву. Зберігаючи при цьому порядок не нульових значень.
 // // Двожина масиву від 2 до 100
 function zeroToEnd(array) {
-    for (let i = 0; i<array.length; i++) {
+    for (let i = 0; i<array.length;i++) {
         if (array[i] === 0) {
-            array[array.length - 1] = array[i];
-            for (let j = i; j < array.length-1; j++) {
-                array[j] = array[j + 1];
-            }
+            let zero = array.splice(i,1);
+            array.push(zero[0]);
         }
     }
-    return array;
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === 0) {
+            zeroToEnd(array);
+        }
+        else {
+            return array;
+
+        }
+    }
 }
 
-let arr = [0,8,0,6,5,0,3,7,0,7,0,0];
+let arr = [0,0,8,0,0,0,6,5,0,3,7,0,7,0,0];
 console.log(zeroToEnd(arr));
 
 //task16
