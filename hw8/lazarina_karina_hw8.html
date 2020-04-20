@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<!--<textarea name="text" id="" cols="30" rows="10"></textarea>-->
+
+<!--<form action="" name="form">-->
+<!--    <input type="text" name="text">-->
+<!--    <input type="checkbox" name="cb">something2-->
+<!--    <input type="checkbox" name="cb1">something1-->
+<!--    <input type="radio" name="rd">yes-->
+<!--    <input type="radio" name="rd">no-->
+<!--    <textarea name="textarea" id="" cols="30" rows="10"></textarea>-->
+<!--</form>-->
+
+<!--<img src="https://image.flaticon.com/icons/svg/126/126492.svg" alt="" style="height: 20px" id="left">-->
+<!--<img src="https://image.flaticon.com/icons/svg/126/126490.svg" alt=""style="height: 20px" id="right">-->
+<!--<textarea name="textarea" id="" cols="30" rows="10"></textarea>-->
+<!--<button>Save</button>-->
+
+<form action="" name="form" id="form">
+    <input type="text" name="name">
+    <input type="text" value="+380" name="number">
+    <input type="text" value="@gmail.com" name="mail">
+    <input type="text" name="firm">
+    <input type="text" name="branch">
+    <input type="text" name="birthday">
+</form>
+<button>Save</button><hr>
+<div id="users"></div>
+
+<script>
+    // - Дана textarea.
+    //     В неё вводится текст.
+    //     Сделайте так, чтобы после захода на эту страницу через некоторое время, введенный текст остался в textarea.
+    // let area = document.querySelector("textarea");
+    // area.value = localStorage.getItem('str');
+    // area.oninput = () =>{
+    //     localStorage.setItem('str',area.value);
+    // }
+
+    // - Дана форма с инпутами, текстареа, чекбоксами, радио кнопочками, селектами и тп.
+    //     Пользователь вводит какие-то данные и закрывает страницу (не факт, что он заполнил всю форму).
+    // Сделайте так, чтобы при следующем заходе на страницу введенные им ранее данные стояли на своих местах.
+    //     Сделайте ваш скрипт как можно более универсальным.
+    // let form = document.form;
+    // console.log(form.children);
+    // for (let i = 0; i < form.children.length; i++) {
+    //     const formElement = form.children[i];
+    //     formElement.value = localStorage.getItem(`${formElement.name}`);
+    //     formElement.checked = localStorage.getItem(`${formElement.name}`)
+    //     formElement.oninput = () =>{
+    //         if(formElement.type === 'checkbox' || formElement.type === 'radio'){
+    //             localStorage.setItem(`${formElement.name}`,formElement.checked);
+    //
+    //         }else {
+    //             localStorage.setItem(`${formElement.name}`,formElement.value);
+    //         }
+    //     }
+    //
+    // }
+
+
+    // -Дан текстареа. В него можно ввести данные, нажать кнопку "сохранить" и они "фикисруются" (в хранилище), затем поредактировать их, затем еще поредактировать и возможно еще.....
+    // Требование : хранить историю своих изменений (даже после перезагрузки страницы).
+    // Сверху над текстареа должны появится стрелочки, с помощью которых можно перемещаться по истории (не забудьте!чекпоинт истории - нажатеи кнопки сохранить).
+    // let area = document.querySelector("textarea");
+    // let btn = document.querySelector('button');
+    // let leftArrow = document.getElementById('left');
+    // let rightArrow = document.getElementById('right');
+    //
+    //
+    // btn.onclick = () =>{
+    //     arrayFromLS.push(area.value);
+    //     localStorage.setItem('values', JSON.stringify(arrayFromLS));
+    // }
+    //
+    // if (localStorage.getItem('values') === null){
+    //     arrayFromLS = [];
+    //     counter = 0;
+    // }else {
+    //      arrayFromLS = JSON.parse(localStorage.getItem('values'));
+    //      counter = arrayFromLS.length;
+    //      area.value = arrayFromLS[counter-1];
+    // }
+    //
+    // rightArrow.onclick = () => {
+    //     if (area.value === arrayFromLS[arrayFromLS.length-1]){
+    //         counter = 0;
+    //         area.value = arrayFromLS[counter];
+    //     }else {
+    //         counter++
+    //         area.value = arrayFromLS[counter];
+    //     }
+    // }
+    // leftArrow.onclick = () => {
+    //     if (area.value === arrayFromLS[0]){
+    //         counter = arrayFromLS.length - 1 ;
+    //         area.value = arrayFromLS[arrayFromLS.length - 1];
+    //     }
+    //     else {
+    //         counter--;
+    //         area.value = arrayFromLS[counter];
+    //     }
+    // }
+    //
+
+    // - Реализуйте записную книгу, хранящую данные в локальном хранилище.
+    //     Данные которые надо сохранять : ФИО, номер, почта, фирма, отдел, день рождения
+    // Данные вводить через соответсвующую форму.
+
+    let div = document.getElementById('users');
+    let btn = document.querySelector('button');
+
+    function createUser() {
+        return {
+            name: document.form.name.value,
+            number: document.form.number.value,
+            mail: document.form.mail.value,
+            firm: document.form.firm.value,
+            branch: document.form.branch.value,
+            birthday: document.form.birthday.value
+        }
+    }
+    function noteUser(user){
+        let a = document.createElement('a');
+        let del = document.createElement('button');
+        let edit = document.createElement('button');
+        let userDiv = document.createElement('div');
+
+        del.innerText = 'Delete';
+        edit.innerText = 'Edit';
+        a.setAttribute('href', '#form');
+
+        for (const key in user) {
+            userDiv.innerHTML += `${key} = ${user[key]}<br>`;
+        }
+
+        div.appendChild(del);
+
+        a.appendChild(edit);
+        div.appendChild(a);
+
+        userDiv.innerHTML += '<hr>';
+        div.appendChild(userDiv);
+
+        del.onclick = () =>{
+            userDiv.style.display = 'none';
+            del.style.display = 'none';
+            edit.style.display = 'none';
+
+            deleteUser(user);
+            localStorage.setItem('users', JSON.stringify(users));
+        }
+
+        edit.onclick = () => {
+            userDiv.style.display = 'none';
+            del.style.display = 'none';
+            edit.style.display = 'none';
+
+            document.form.name.value = user.name;
+            document.form.number.value = user.number;
+            document.form.mail.value = user.mail;
+            document.form.firm.value = user.firm;
+            document.form.branch.value = user.branch;
+            document.form.birthday.value = user.birthday;
+
+            deleteUser(user);
+            localStorage.setItem('users', JSON.stringify(users));
+
+        }
+    }
+    function saveUser(user){
+        noteUser(user);
+        users.push(user);
+    }
+    function deleteUser (user){
+        users.forEach((value, index) => {
+            if (user.number === value.number){
+                users.splice(index,1);
+            }
+        })
+        return users;
+    }
+
+    btn.onclick = () =>{
+        let user = createUser();
+        saveUser(user);
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+
+
+    if (localStorage.getItem('users') === null){
+        users = [];
+    }
+    else {
+        users = JSON.parse(localStorage.getItem('users'));
+        users.forEach((value) => noteUser(value));
+    }
+
+    // --Каждому контакту добавить кнопку для удаления контакта.
+    // --Каждому контакту добавить кнопку редактироваиня.
+    // При нажати на нее появляется форма, в которой есть все необходимые инпуты для редактирования, которые уже заполнены данными объекта
+
+
+
+
+
+</script>
+</body>
+</html>
